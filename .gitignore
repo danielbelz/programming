@@ -1,0 +1,13 @@
+.vscode/
+*.o
+*.d
+*.so
+*.a
+*.la
+autom4te.cache
+.deps
+.dirstamp
+Makefile
+stamp*
+*.pyc
+config.status
