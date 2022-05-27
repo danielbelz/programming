@@ -17,6 +17,7 @@
 
 int main(int argc, char** argv)
 {
+	const char* ifname;
 	int sock;
 	struct ifreq ifr;
 	struct ethtool_cmd edata;
@@ -28,8 +29,14 @@ int main(int argc, char** argv)
 		exit(1);
 	}
 
+	if (argc != 2) {
+		fprintf(stderr, "Usage: get_eth_speed <interface>\n");
+		return 1;
+	}
+	ifname = argv[1];
+
     // Interface name from which we are getting the speed
-	strncpy(ifr.ifr_name, "eth1_1", sizeof(ifr.ifr_name));
+	strncpy(ifr.ifr_name, ifname, sizeof(ifr.ifr_name));
 	ifr.ifr_data = &edata;
 	edata.cmd = ETHTOOL_GSET;
 

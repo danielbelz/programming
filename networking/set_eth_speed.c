@@ -75,6 +75,7 @@ int main(int argc, char** argv)
 	struct ifreq ifr;
 	struct ethtool_cmd edata;
 	int rc;
+	const char* ifname;
 
 	sock = socket(PF_INET, SOCK_DGRAM, IPPROTO_IP);
 	if (sock < 0) {
@@ -82,7 +83,13 @@ int main(int argc, char** argv)
 		exit(1);
 	}
 
-	strncpy(ifr.ifr_name, "enp0s25", sizeof(ifr.ifr_name));
+	if (argc != 2) {
+		fprintf(stderr, "Usage: set_eth_speed <interface>\n");
+		return 1;
+	}
+
+	ifname = argv[1];
+	strncpy(ifr.ifr_name, ifname, sizeof(ifr.ifr_name));
 	ifr.ifr_data = &edata;
 	edata.cmd = ETHTOOL_GSET;
 
