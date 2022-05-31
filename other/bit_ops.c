@@ -6,6 +6,10 @@
 #include <stdio.h>
 
 typedef unsigned char uchar;
+#define BITMASK(n) ((1ULL << (n)) - 1ULL)
+#define BITSHIFT(val,bitn) ((val)>>(bitn))
+#define CHECK_BIT(val,bitn)  (((val)>>(bitn)) & 1)
+#define MASK_N_BITS(val,bitn,n)  (((val)>>(bitn-n)) & ((1ULL << (n)) - 1ULL))
 
 void toggle_bit(unsigned char number, int bit)
 {
